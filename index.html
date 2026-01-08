@@ -3,17 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vannesa Vivian Firmando | Personal Website</title>
+    <title>Vannesa Vivian Firmando</title>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
+
     <style>
       :root {
-        --sky-blue: #e0f2fe;
-        --deep-blue: #0284c7;
-        --accent-blue: #0ea5e9;
-        --text-dark: #334155;
+        --sky: #e0f2fe;
+        --deep: #0284c7;
+        --accent: #0ea5e9;
+        --dark: #334155;
         --white: #ffffff;
       }
 
@@ -23,266 +25,395 @@
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
       }
-
-      body {
-        background-color: var(--sky-blue);
-        color: var(--text-dark);
-        line-height: 1.6;
+      html {
         scroll-behavior: smooth;
       }
+      body {
+        background: var(--sky);
+        color: var(--dark);
+        overflow-x: hidden;
+      }
 
+      /* ===== SCROLL INDICATOR ===== */
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        width: 0;
+        background: linear-gradient(90deg, var(--deep), var(--accent));
+        z-index: 3000;
+      }
+
+      /* ===== NAVBAR ===== */
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 2000;
+        backdrop-filter: blur(12px);
+        background: rgba(224, 242, 254, 0.8);
+      }
+      nav {
+        max-width: 1100px;
+        margin: auto;
+        padding: 15px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      nav h1 {
+        color: var(--deep);
+        font-weight: 700;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+      nav a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        position: relative;
+      }
+      nav a.active::after,
+      nav a:hover::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 100%;
+        height: 2px;
+        background: var(--deep);
+      }
+
+      /* ===== SECTION ===== */
       section {
-        padding: 80px 10%;
         min-height: 100vh;
+        padding: 120px 8% 80px;
         display: flex;
         align-items: center;
         justify-content: center;
       }
-
       .container {
         max-width: 1100px;
         width: 100%;
       }
 
-      /* --- HOME SECTION --- */
+      /* ===== ANIMATION ===== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(60px);
+        transition: 0.9s ease;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .zoom {
+        transform: scale(0.85);
+        transition: 0.9s ease;
+      }
+      .zoom.active {
+        transform: scale(1);
+      }
+
+      /* ===== HOME (FIX SIDE IMAGE) ===== */
       #home {
-        text-align: center;
-        background: linear-gradient(180deg, #bae6fd 0%, #e0f2fe 100%);
+        background: linear-gradient(135deg, #bae6fd, #e0f2fe);
       }
-
-      .headline {
-        font-size: 3rem;
-        color: var(--deep-blue);
-        margin-bottom: 10px;
-      }
-
-      .sub-headline {
-        font-size: 1.2rem;
-        font-weight: 300;
-        margin-bottom: 20px;
-        color: var(--accent-blue);
-      }
-
-      .description {
-        max-width: 600px;
-        margin: 0 auto 30px;
-      }
-
-      .cta-button {
-        display: inline-block;
-        padding: 12px 30px;
-        background-color: var(--deep-blue);
-        color: white;
-        text-decoration: none;
-        border-radius: 50px;
-        transition: 0.3s;
-        font-weight: 600;
-      }
-
-      .cta-button:hover {
-        background-color: var(--accent-blue);
-        transform: translateY(-3px);
-      }
-
-      /* --- TAEKWONDO SECTION --- */
-      #taekwondo {
-        background-color: var(--white);
-      }
-
-      .flex-container {
-        display: flex;
+      .home {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr; /* FIX 2 kolom */
+        gap: 60px;
         align-items: center;
+      }
+      .home img {
+        width: 100%;
+        max-width: 380px;
+        justify-self: end;
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(2, 132, 199, 0.3);
+        animation: float 4s ease-in-out infinite;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-12px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 5vw, 3rem);
+        color: var(--deep);
+      }
+      .sub {
+        color: var(--accent);
+        margin: 15px 0;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 36px;
+        background: var(--deep);
+        color: white;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+      .btn:hover {
+        background: var(--accent);
+        transform: translateY(-4px);
+      }
+
+      /* ===== TAEKWONDO ===== */
+      #taekwondo {
+        background: white;
+      }
+      .flex {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 50px;
-        flex-wrap: wrap;
+        align-items: center;
       }
-
-      .content-box {
-        flex: 1;
-        min-width: 300px;
-      }
-
-      .image-box {
-        flex: 1;
-        min-width: 300px;
-        text-align: center;
-      }
-
-      .image-box img {
+      .flex img {
         width: 100%;
         max-width: 400px;
         border-radius: 20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
       }
-
       .points {
-        margin-top: 20px;
         list-style: none;
+        margin-top: 20px;
       }
-
       .points li {
         margin-bottom: 10px;
         padding-left: 25px;
         position: relative;
       }
-
       .points li::before {
-        content: "✓";
+        content: "✔";
         position: absolute;
         left: 0;
-        color: var(--deep-blue);
-        font-weight: bold;
+        color: var(--deep);
       }
 
-      /* --- EDUCATION SECTION --- */
-      #school {
-        background: var(--sky-blue);
-      }
-
+      /* ===== SCHOOL ===== */
       .card {
         background: white;
         padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border-radius: 25px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
         text-align: center;
       }
-
-      .school-info {
-        margin: 25px 0;
-        padding: 20px;
-        background-color: #f8fafc;
-        border-radius: 15px;
-        display: inline-block;
-        text-align: left;
-      }
-
-      .school-img {
+      .card img {
         width: 100%;
-        max-height: 400px;
+        max-height: 350px;
         object-fit: cover;
-        border-radius: 15px;
+        border-radius: 20px;
         margin-bottom: 25px;
       }
-
+      .info {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 15px;
+        max-width: 520px;
+        margin: 20px auto;
+        text-align: left;
+        font-size: 0.9rem;
+      }
       .quote {
+        color: var(--accent);
         font-style: italic;
-        margin-top: 30px;
-        color: var(--accent-blue);
         font-weight: 500;
+      }
+
+      /* ===== PRESTASI ===== */
+      .achievements {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+      .ach-card {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 18px;
+        transition: 0.4s;
+      }
+      .ach-card:hover {
+        transform: translateY(-10px);
+      }
+      .icon {
+        font-size: 2rem;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* ===== MOBILE ===== */
+      @media (max-width: 768px) {
+        .home,
+        .flex {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .home img {
+          justify-self: center;
+        }
       }
 
       footer {
         text-align: center;
-        padding: 20px;
-        font-size: 0.9rem;
+        padding: 30px;
         color: #64748b;
-      }
-
-      @media (max-width: 768px) {
-        .headline {
-          font-size: 2rem;
-        }
-        .flex-container {
-          flex-direction: column-reverse;
-        }
+        font-size: 0.85rem;
       }
     </style>
   </head>
+
   <body>
+    <div class="progress-bar" id="bar"></div>
+
+    <header>
+      <nav>
+        <h1>Vannesa</h1>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#taekwondo">Taekwondo</a></li>
+          <li><a href="#school">School</a></li>
+        </ul>
+      </nav>
+    </header>
+
     <section id="home">
-      <div class="container">
-        <h1 class="headline">Halo, Saya Vannesa Vivian Firmando</h1>
-        <p class="sub-headline">
-          Seseorang yang percaya bahwa setiap hari adalah kesempatan baru untuk
-          belajar dan bertumbuh.
-        </p>
-        <p class="description">
-          Saya adalah seorang pelajar yang bersekolah di SMP Negeri 11
-          Banjarbaru. Saya sangat tertarik dengan dunia olahraga. Selamat datang
-          di sudut kecil saya di internet!
-        </p>
-        <a href="#taekwondo" class="cta-button">Kenali Saya Lebih Dekat</a>
+      <div class="container reveal home">
+        <div>
+          <h1>Halo, Saya Vannesa Vivian Firmando</h1>
+          <p class="sub">Pelajar dengan disiplin dan semangat</p>
+          <p>
+            Saya siswi SMP Negeri 11 Banjarbaru yang aktif mengembangkan
+            karakter melalui pendidikan dan olahraga.
+          </p>
+          <br />
+          <a href="#taekwondo" class="btn">Jelajahi</a>
+        </div>
+        <img src="foto-home.png" alt="Vannesa Home" />
       </div>
     </section>
 
     <section id="taekwondo">
-      <div class="container">
-        <div class="flex-container">
-          <div class="image-box">
-            <img src="foto-taekwondo.png" alt="Vannesa Taekwondo Action" />
-            <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 10px"></p>
-          </div>
-          <div class="content-box">
-            <h2
-              style="
-                color: var(--deep-blue);
-                font-size: 2.5rem;
-                margin-bottom: 15px;
-              "
-            >
-              Disiplin & Kekuatan
-            </h2>
-            <p>
-              "Keseharian saya dibentuk oleh semangat Taekwondo. Di atas matras,
-              saya tidak hanya melatih fisik, tetapi juga kedisiplinan dan
-              ketenangan mental. Setiap gerakan adalah proses untuk melampaui
-              batas diri dan membangun fokus yang jernih seperti langit biru."
-            </p>
-            <ul class="points">
-              <li><strong>Disiplin:</strong> Konsistensi dalam berlatih.</li>
-              <li>
-                <strong>Respek:</strong> Menghargai lawan dan diri sendiri.
-              </li>
-              <li><strong>Fokus:</strong> Ketenangan dalam setiap aksi.</li>
-            </ul>
-          </div>
+      <div class="container reveal flex">
+        <img src="foto-taekwondo.png" />
+        <div>
+          <h2 style="color: var(--deep)">🥋 Disiplin & Kekuatan</h2>
+          <p>Taekwondo membentuk fokus, respek, dan ketangguhan mental.</p>
+          <ul class="points">
+            <li>Disiplin latihan</li>
+            <li>Respek sesama</li>
+            <li>Fokus diri</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <section id="school">
-      <div class="container">
+      <div class="container reveal">
         <div class="card">
-          <img
-            src="foto-sekolah.jpeg"
-            alt="SMPN 11 Banjarbaru"
-            class="school-img"
-          />
+          <img src="foto-sekolah.jpeg" class="zoom" />
+          <h2 style="color: var(--deep)">
+            Menimba Ilmu di SMP Negeri 11 Banjarbaru
+          </h2>
+          <p class="sub">Lingkungan pembentuk karakter</p>
 
-          <h2 style="color: var(--deep-blue)">Jejak Akademik</h2>
-          <p class="sub-headline">Menimba Ilmu di SMP Negeri 11 Banjarbaru</p>
-
-          <p style="margin: 20px 0">
-            "Saat ini saya sedang menempuh pendidikan di SMP Negeri 11
-            Banjarbaru. Di sekolah yang berlokasi di kawasan Landasan Ulin ini,
-            saya tidak hanya belajar secara akademis, tetapi juga aktif
-            mengembangkan karakter dan kemandirian."
+          <p>
+            Saat ini saya sedang menempuh pendidikan di SMP Negeri 11
+            Banjarbaru, mengembangkan akademik, karakter, dan kemandirian.
           </p>
 
-          <div class="school-info">
+          <div class="info">
+            <p>📍 Jl. Padang Golf, Landasan Ulin Utara, Banjarbaru</p>
             <p>
-              <strong>📍 Lokasi:</strong> Jl. Padang Golf, Landasan Ulin Utara,
-              Kota Banjarbaru.
-            </p>
-            <p>
-              <strong>🌐 Website:</strong>
-              <a
-                href="http://smpn11banjarbaru.sch.id"
-                target="_blank"
-                style="color: var(--accent-blue)"
+              🌐
+              <a href="http://smpn11banjarbaru.sch.id" target="_blank"
                 >smpn11banjarbaru.sch.id</a
               >
             </p>
           </div>
 
+          <h3 style="color: var(--deep)">🎓 Prestasi & Aktivitas</h3>
+          <div class="achievements">
+            <div class="ach-card">
+              <div class="icon">🏅</div>
+              Aktif kegiatan sekolah
+            </div>
+            <div class="ach-card">
+              <div class="icon">🥋</div>
+              Atlet Taekwondo
+            </div>
+            <div class="ach-card">
+              <div class="icon">📚</div>
+              Disiplin belajar
+            </div>
+          </div>
+
           <p class="quote">
-            "Belajar bukan hanya tentang sekolah, tapi tentang kehidupan."
+            “Belajar bukan hanya tentang sekolah, tapi tentang kehidupan.”
           </p>
         </div>
       </div>
     </section>
 
-    <footer>
-      &copy; 2024 Vannesa Vivian Firmando. Dibuat dengan semangat Sky Blue.
-    </footer>
+    <footer>© 2024 Vannesa Vivian Firmando • Sky Blue Spirit</footer>
+
+    <script>
+      /* Scroll bar */
+      window.addEventListener("scroll", () => {
+        let h = document.documentElement;
+        bar.style.width =
+          (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
+      });
+
+      /* Reveal + Zoom */
+      const obs = new IntersectionObserver(
+        (e) => {
+          e.forEach((x) => {
+            if (x.isIntersecting) x.target.classList.add("active");
+          });
+        },
+        { threshold: 0.15 }
+      );
+      document
+        .querySelectorAll(".reveal,.zoom")
+        .forEach((el) => obs.observe(el));
+
+      /* Scroll Spy */
+      const links = document.querySelectorAll("nav a");
+      const secs = document.querySelectorAll("section");
+      window.addEventListener("scroll", () => {
+        let cur = "";
+        secs.forEach((sec) => {
+          if (pageYOffset >= sec.offsetTop - 150) cur = sec.id;
+        });
+        links.forEach((a) => {
+          a.classList.toggle("active", a.getAttribute("href") === "#" + cur);
+        });
+      });
+    </script>
   </body>
 </html>
